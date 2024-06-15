@@ -1,42 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
 const OurCourses = () => {
-    const courses = [
-        {
-            id: 1,
-            image: 'https://via.placeholder.com/300',
-            title: 'Web Development',
-            description: 'Learn to build modern web applications using HTML, CSS, and JavaScript.',
-            admission: 'Open',
-            startDate: '2024-07-01',
-            endDate: '2024-08-15'
-        },
-        {
-            id: 2,
-            image: 'https://via.placeholder.com/300',
-            title: 'Data Science',
-            description: 'Explore data analysis, machine learning, and data visualization techniques.',
-            admission: 'Closed',
-            startDate: '2024-07-15',
-            endDate: '2024-09-30'
-        },
-        {
-            id: 3,
-            image: 'https://via.placeholder.com/300',
-            title: 'Mobile App Development',
-            description: 'Build native mobile apps for iOS and Android using React Native framework.',
-            admission: 'Open',
-            startDate: '2024-08-01',
-            endDate: '2024-10-15'
-        },
-    ];
+    const [courses, setCourses] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const coursesPerPage = 6;
+
+    useEffect(() => {
+        fetch('coursedata.json')
+            .then(response => response.json())
+            .then(data => setCourses(data))
+            .catch(error => console.error('Error fetching course data:', error));
+    }, []);
+
+    const totalPages = Math.ceil(courses.length / coursesPerPage);
+    const indexOfLastCourse = currentPage * coursesPerPage;
+    const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+    const currentCourses = courses.slice(indexOfFirstCourse, indexOfLastCourse);
+
+    const handleClick = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h2 className="text-4xl font-bold mb-8 text-center">Our Courses</h2>
+            <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">Our Courses</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {courses.map(course => (
+                {currentCourses.map(course => (
                     <motion.div
                         key={course.id}
                         className="bg-white rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
@@ -52,7 +43,7 @@ const OurCourses = () => {
                             <p className="text-sm text-gray-500 mb-4">End Date: {course.endDate}</p>
                             {course.admission === 'Open' ? (
                                 <motion.button
-                                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                 >
@@ -64,6 +55,31 @@ const OurCourses = () => {
                         </div>
                     </motion.div>
                 ))}
+            </div>
+            <div className="flex justify-center mt-8 space-x-2">
+                <button
+                    className={`flex items-center justify-center w-10 h-10 rounded-full ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-800 text-white'}`}
+                    onClick={() => handleClick(currentPage - 1)}
+                    disabled={currentPage === 1}
+                >
+                    <FaAngleLeft />
+                </button>
+                {[...Array(totalPages)].map((_, index) => (
+                    <button
+                        key={index + 1}
+                        className={`flex items-center justify-center w-10 h-10 rounded-full ${currentPage === index + 1 ? 'bg-blue-700 text-white' : 'bg-blue-500 text-white'}`}
+                        onClick={() => handleClick(index + 1)}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+                <button
+                    className={`flex items-center justify-center w-10 h-10 rounded-full ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-800 text-white'}`}
+                    onClick={() => handleClick(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                >
+                    <FaAngleRight />
+                </button>
             </div>
         </div>
     );

@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "image": "https://via.placeholder.com/300",
+        "title": "Web Development",
+        "description": "Learn to build modern web applications using HTML, CSS, and JavaScript.",
+        "admission": "Open",
+        "startDate": "2024-07-01",
+        "endDate": "2024-08-15"
+    },
+    {
+        "id": 2,
+        "image": "https://via.placeholder.com/300",
+        "title": "Data Science",
+        "description": "Explore data analysis, machine learning, and data visualization techniques.",
+        "admission": "Closed",
+        "startDate": "2024-07-15",
+        "endDate": "2024-09-30"
+    },
+    {
+        "id": 3,
+        "image": "https://via.placeholder.com/300",
+        "title": "Mobile App Development",
+        "description": "Build native mobile apps for iOS and Android using React Native framework.",
+        "admission": "Open",
+        "startDate": "2024-08-01",
+        "endDate": "2024-10-15"
+    },
+    {
+        "id": 4,
+        "image": "https://via.placeholder.com/300",
+        "title": "Cyber Security",
+        "description": "Understand the principles of protecting systems, networks, and data from cyber attacks.",
+        "admission": "Open",
+        "startDate": "2024-09-01",
+        "endDate": "2024-11-15"
+    },
+    {
+        "id": 5,
+        "image": "https://via.placeholder.com/300",
+        "title": "Digital Marketing",
+        "description": "Learn the skills to create and manage effective digital marketing campaigns.",
+        "admission": "Closed",
+        "startDate": "2024-06-15",
+        "endDate": "2024-08-30"
+    },
+    {
+        "id": 6,
+        "image": "https://via.placeholder.com/300",
+        "title": "Graphic Design",
+        "description": "Master the tools and techniques for creating stunning visuals and graphics.",
+        "admission": "Open",
+        "startDate": "2024-07-10",
+        "endDate": "2024-09-25"
+    },
+    {
+        "id": 7,
+        "image": "https://via.placeholder.com/300",
+        "title": "Artificial Intelligence",
+        "description": "Dive into the world of AI and learn about neural networks and machine learning.",
+        "admission": "Closed",
+        "startDate": "2024-08-05",
+        "endDate": "2024-10-20"
+    },
+    {
+        "id": 8,
+        "image": "https://via.placeholder.com/300",
+        "title": "Blockchain Technology",
+        "description": "Understand blockchain technology and its applications in various industries.",
+        "admission": "Open",
+        "startDate": "2024-07-20",
+        "endDate": "2024-09-10"
+    },
+    {
+        "id": 9,
+        "image": "https://via.placeholder.com/300",
+        "title": "Cloud Computing",
+        "description": "Learn about cloud services and how to deploy and manage cloud applications.",
+        "admission": "Closed",
+        "startDate": "2024-06-01",
+        "endDate": "2024-08-15"
+    },
+    {
+        "id": 10,
+        "image": "https://via.placeholder.com/300",
+        "title": "Internet of Things (IoT)",
+        "description": "Explore IoT technology and learn to create connected devices and systems.",
+        "admission": "Open",
+        "startDate": "2024-09-10",
+        "endDate": "2024-11-30"
+    }
+]
