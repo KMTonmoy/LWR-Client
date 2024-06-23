@@ -41,19 +41,7 @@ const Login = () => {
                                     required
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="role" className="block text-lg fon my-2 t-medium text-gray-700 mb-2">Role</label>
-                                <select
-                                    id="role"
-                                    name="role"
-                                    className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base"
-                                    required
-                                >
-                                    <option value="">Select your role</option>
-                                    <option value="teacher">Teacher</option>
-                                    <option value="student">Student</option>
-                                </select>
-                            </div>
+                        
                         </motion.div>
                         <motion.button
                             whileHover={{ scale: 1.05 }}

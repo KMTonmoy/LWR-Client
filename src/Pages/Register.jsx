@@ -1,93 +1,159 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaRegEye, FaRegEyeSlash, FaGoogle } from "react-icons/fa";
+import Swal from 'sweetalert2';
+import useAuth from '../hooks/useAuth';
+import { imageUpload } from '../api/utils/index';
 
 const Register = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [image, setImage] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
+
+    const {
+        createUser,
+        signInWithGoogle,
+        updateUserProfile,
+        setLoading,
+    } = useAuth();
+
+    const handleGoogleSignIn = async () => {
+        try {
+            await signInWithGoogle();
+            Swal.fire({
+                title: 'Signup Successful',
+                text: 'You have successfully signed up.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+            navigate('/');
+        } catch (err) {
+            Swal.fire({
+                title: 'Signup Failed',
+                text: err.message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    };
+
+    const handleSignup = async (e) => {
+        e.preventDefault();
+
+        try {
+            const imageUrl = await imageUpload(image);
+            await createUser(email, password);
+            await updateUserProfile(name, imageUrl);
+            Swal.fire({
+                title: 'Signup Successful',
+                text: 'You have successfully signed up.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+            navigate('/');
+        } catch (err) {
+            Swal.fire({
+                title: 'Signup Failed',
+                text: err.message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(file);
+        }
+    };
+
     return (
-        <div className="container mx-auto px-4 py-16">
-            <motion.div
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-                className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg"
-            >
-                <div className="px-6 py-8">
-                    <h2 className="text-4xl font-bold text-gray-800 mb-8 text-center">Register</h2>
-                    <form className="space-y-6">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+                <h2 className="text-3xl font-bold text-center text-purple-700 mb-8">Sign Up</h2>
+                <form onSubmit={handleSignup} className="space-y-4">
+                    <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+                        <input
+                            id="name"
+                            type="text"
+                            placeholder="Enter your Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="w-full px-4 py-2 mt-2 text-gray-800 bg-gray-200 border border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full px-4 py-2 mt-2 text-gray-800 bg-gray-200 border border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                            required
+                        />
+                    </div>
+                    <div className="relative">
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                        <input
+                            id="password"
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full px-4 py-2 mt-2 text-gray-800 bg-gray-200 border border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                            required
+                        />
+                        <button
+                            type="button"
+                            onClick={togglePasswordVisibility}
+                            className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-600 focus:outline-none"
                         >
-                            <div>
-                                <label htmlFor="username" className=" my-2 block text-lg font-medium text-gray-700 mb-2">Username</label>
-                                <input
-                                    type="text"
-                                    id="username"
-                                    name="username"
-                                    placeholder="Enter your username"
-                                    className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="email" className=" my-2 block text-lg font-medium text-gray-700 mb-2">Email Address</label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    placeholder="Enter your email address"
-                                    className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="password" className=" my-2 block text-lg font-medium text-gray-700 mb-2">Password</label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    placeholder="Enter your password"
-                                    className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label htmlFor="role" className="block text-lg fon my-2 t-medium text-gray-700 mb-2">Role</label>
-                                <select
-                                    id="role"
-                                    name="role"
-                                    className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base"
-                                    required
-                                >
-                                    <option value="">Select your role</option>
-                                    <option value="teacher">Teacher</option>
-                                    <option value="student">Student</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label htmlFor="profilePic" className=" my-2 block text-lg font-medium text-gray-700 mb-2">Profile Picture</label>
-                                <input
-                                    type="file"
-                                    id="profilePic"
-                                    name="profilePic"
-                                    accept="image/*"
-                                    className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-base"
-                                    required
-                                />
-                            </div>
-                        </motion.div>
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            type="submit"
-                            className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out"
-                        >
-                            Register
-                        </motion.button>
-                    </form>
+                            {showPassword ? <FaRegEyeSlash className="text-lg" /> : <FaRegEye className="text-lg" />}
+                        </button>
+                    </div>
+                    <div>
+                        <label htmlFor="image" className="block text-sm font-medium text-gray-700">Upload Picture</label>
+                        <input
+                            id="image"
+                            type="file"
+                            onChange={handleImageChange}
+                            className="w-full px-4 py-2 mt-2 text-gray-800 bg-gray-200 border border-gray-300 rounded-md focus:outline-none focus:ring-purple-500 focus:border-purple-500"
+                            required
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="w-full px-4 py-2 text-lg font-semibold text-white bg-gradient-to-r from-purple-400 to-purple-600 rounded-md hover:from-purple-500 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    >
+                        Sign Up
+                    </button>
+                </form>
+                <div className="flex justify-center mt-4">
+                    <button
+                        onClick={handleGoogleSignIn}
+                        className="flex items-center px-4 py-2 text-lg font-semibold text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
+                    >
+                        <FaGoogle className="mr-2" />
+                        Sign Up with Google
+                    </button>
                 </div>
-            </motion.div>
+                <div className="text-sm text-gray-600 text-center mt-4">
+                    Already have an account?{' '}
+                    <Link to="/login" className="text-purple-700 hover:underline">Log in here</Link>
+                </div>
+            </div>
         </div>
     );
 };
