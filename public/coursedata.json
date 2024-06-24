@@ -1,6 +1,5 @@
 [
     {
-        "id": 1,
         "image": "https://miro.medium.com/v2/resize:fit:1200/1*V-Jp13LvtVc2IiY2fp4qYw.jpeg",
         "title": "Web Development",
         "description": "Learn to build modern web applications using HTML, CSS, and JavaScript.",
@@ -9,7 +8,6 @@
         "endDate": "2024-08-15"
     },
     {
-        "id": 2,
         "image": "https://miro.medium.com/v2/resize:fit:730/0*POjH5vv_7t8s8loG",
         "title": "Data Science",
         "description": "Explore data analysis, machine learning, and data visualization techniques.",
@@ -18,7 +16,6 @@
         "endDate": "2024-09-30"
     },
     {
-        "id": 3,
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPWF5IorBoaR321bBBzOAMLJDMBlOLWG7KIw&s",
         "title": "Mobile App Development",
         "description": "Build native mobile apps for iOS and Android using React Native framework.",
@@ -27,7 +24,6 @@
         "endDate": "2024-10-15"
     },
     {
-        "id": 4,
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw9tP_oQn8JJNfNmlgoZgOTHSKvYsxBOZUKQ&s",
         "title": "Cyber Security",
         "description": "Understand the principles of protecting systems, networks, and data from cyber attacks.",
@@ -36,7 +32,6 @@
         "endDate": "2024-11-15"
     },
     {
-        "id": 5,
         "image": "https://www.reliablesoft.net/wp-content/uploads/2023/03/digital-marketing-definition-new.png",
         "title": "Digital Marketing",
         "description": "Learn the skills to create and manage effective digital marketing campaigns.",
@@ -45,7 +40,6 @@
         "endDate": "2024-08-30"
     },
     {
-        "id": 6,
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSxtNbPUQcm8Y84zL5g11s5Oj2BsB9xjdwVg&s",
         "title": "Graphic Design",
         "description": "Master the tools and techniques for creating stunning visuals and graphics.",
@@ -54,7 +48,6 @@
         "endDate": "2024-09-25"
     },
     {
-        "id": 7,
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYTz5b0VHp3jCQ0jUAPQSIur3ZSOZ8UTcUrg&s",
         "title": "Artificial Intelligence",
         "description": "Dive into the world of AI and learn about neural networks and machine learning.",
@@ -63,7 +56,6 @@
         "endDate": "2024-10-20"
     },
     {
-        "id": 8,
         "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRahiRr39luS61NkhrHWT4d0vYxljyRz5pdzw&s",
         "title": "Blockchain Technology",
         "description": "Understand blockchain technology and its applications in various industries.",
@@ -72,7 +64,6 @@
         "endDate": "2024-09-10"
     },
     {
-        "id": 9,
         "image": "https://images.spiceworks.com/wp-content/uploads/2021/07/02105247/Cloud-Computing.png",
         "title": "Cloud Computing",
         "description": "Learn about cloud services and how to deploy and manage cloud applications.",
@@ -81,7 +72,6 @@
         "endDate": "2024-08-15"
     },
     {
-        "id": 10,
         "image": "https://miro.medium.com/v2/resize:fit:710/1*3N-I4qICwckVaLb9OWS7Cg.png",
         "title": "Internet of Things (IoT)",
         "description": "Explore IoT technology and learn to create connected devices and systems.",

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,6 +9,8 @@ import AuthProvider from './providers/AuthProvider';
 
 const App = () => {
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+
 
   useEffect(() => {
     const handleOffline = () => {

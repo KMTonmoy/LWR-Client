@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const CoursesPage = () => {
     const [courses, setCourses] = useState([]);
@@ -9,7 +10,7 @@ const CoursesPage = () => {
     const coursesPerPage = 6;
 
     useEffect(() => {
-        fetch('coursedata.json')
+        fetch('http://localhost:9000/course')
             .then(response => response.json())
             .then(data => setCourses(data))
             .catch(error => console.error('Error fetching course data:', error));
@@ -17,7 +18,7 @@ const CoursesPage = () => {
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
-        setCurrentPage(1); // Reset to the first page on search
+        setCurrentPage(1);  
     };
 
     const filteredCourses = courses.filter(course =>
@@ -66,7 +67,7 @@ const CoursesPage = () => {
                             <p className="text-sm text-gray-500 mb-2">Admission: <span className={`${course.admission === 'Open' ? 'text-green-500' : 'text-red-500'}`}>{course.admission}</span></p>
                             <p className="text-sm text-gray-500 mb-2">Start Date: {course.startDate}</p>
                             <p className="text-sm text-gray-500 mb-4">End Date: {course.endDate}</p>
-                            {course.admission === 'Open' ? (
+                            {/* {course.admission === 'Open' ? (
                                 <motion.button
                                     className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out"
                                     whileHover={{ scale: 1.05 }}
@@ -76,7 +77,29 @@ const CoursesPage = () => {
                                 </motion.button>
                             ) : (
                                 <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md cursor-not-allowed" disabled>Admission Closed</button>
-                            )}
+                            )} */}
+
+<div className="flex space-x-2">
+                                {course.admission === 'Open' ? (
+                                    <motion.button
+                                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out"
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        Enroll Now
+                                    </motion.button>
+                                ) : (
+                                    <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md cursor-not-allowed" disabled>Admission Closed</button>
+                                )}
+                                <Link
+                                    to={`/courseDetail/${course._id}`}
+                                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out flex items-center justify-center"
+                                >
+                                    Detail
+                                </Link>
+                            </div>
+
+
                         </div>
                     </motion.div>
                 ))}

@@ -1,9 +1,6 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../providers/AuthProvider';
 
 const Faq = () => {
-    const { user } = useContext(AuthContext)
-    console.log(user)
+
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="my-10">

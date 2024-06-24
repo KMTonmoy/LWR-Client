@@ -10,13 +10,13 @@ const Banner = () => {
     const [slides, setSlides] = useState([]);
 
     useEffect(() => {
-        fetch(`bannerData.json`)
+        fetch(`http://localhost:9000/banners`)
             .then(response => response.json())
             .then(data => setSlides(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    const shouldLoop = slides.length > 2; 
+    const shouldLoop = slides.length > 2;
 
     return (
         <div className='container px-2 rounded-2xl py-10 mx-auto'>

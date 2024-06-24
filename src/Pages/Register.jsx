@@ -11,16 +11,17 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [image, setImage] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const {
         createUser,
         signInWithGoogle,
         updateUserProfile,
-        setLoading,
     } = useAuth();
 
     const handleGoogleSignIn = async () => {
+        setLoading(true);
         try {
             await signInWithGoogle();
             Swal.fire({
@@ -37,12 +38,14 @@ const Register = () => {
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleSignup = async (e) => {
         e.preventDefault();
-
+        setLoading(true);
         try {
             const imageUrl = await imageUpload(image);
             await createUser(email, password);
@@ -61,6 +64,8 @@ const Register = () => {
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -137,7 +142,7 @@ const Register = () => {
                         type="submit"
                         className="w-full px-4 py-2 text-lg font-semibold text-white bg-gradient-to-r from-purple-400 to-purple-600 rounded-md hover:from-purple-500 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
                     >
-                        Sign Up
+                        {loading ? <span className="loading loading-bars loading-lg"></span> : 'Sign Up'}
                     </button>
                 </form>
                 <div className="flex justify-center mt-4">
@@ -145,8 +150,7 @@ const Register = () => {
                         onClick={handleGoogleSignIn}
                         className="flex items-center px-4 py-2 text-lg font-semibold text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
                     >
-                        <FaGoogle className="mr-2" />
-                        Sign Up with Google
+                        {loading ? <span className="loading loading-bars loading-lg"></span> : <><FaGoogle className="mr-2" />Sign Up with Google</>}
                     </button>
                 </div>
                 <div className="text-sm text-gray-600 text-center mt-4">

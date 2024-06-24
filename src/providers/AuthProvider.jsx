@@ -89,33 +89,28 @@ const AuthProvider = ({ children }) => {
         }
     };
 
-
     const saveUser = async (user) => {
         try {
-
             const existingUserResponse = await axios.get(
                 `${import.meta.env.VITE_API_URL}/users/${user?.email}`
             );
             const existingUser = existingUserResponse.data;
 
-
             if (existingUser) {
-
                 return existingUser;
             }
 
-
             const currentUser = {
                 email: user?.email,
-                name: user.displayName,
+                name: user?.displayName,
+                profile: user?.photoURL,
                 role: 'user',
-               
             };
             const { data } = await axios.put(
                 `${import.meta.env.VITE_API_URL}/user`,
                 currentUser
             );
-           
+
             return data;
         } catch (error) {
             console.error("Error saving user:", error);
@@ -123,18 +118,18 @@ const AuthProvider = ({ children }) => {
         }
     };
 
-
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
             if (currentUser) {
                 try {
                     const token = await getToken(currentUser.email);
-                    await saveUser(currentUser);
-                    localStorage.setItem('access-token', token);
- 
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                    setTimeout(async () => {
+                        await saveUser(currentUser);
+                        localStorage.setItem('access-token', token);
+
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                    }, 10000); // Adding a 10-second delay
                 } catch (error) {
                     console.error("Error handling auth state change:", error);
                 }

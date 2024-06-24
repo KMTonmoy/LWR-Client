@@ -1,16 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../../providers/AuthProvider';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-
+    const [mydata, SetmyData] = useState([])
     const logout = () => {
         logOut()
     }
 
+    useEffect(() => {
+        const fetchUserData = async () => {
+            if (user && user.email) {
 
+                const response = await fetch(`http://localhost:9000/users/${user?.email}`);
+                if (response.ok) {
+                    const userData = await response.json();
+                    SetmyData(userData);
+                } else {
+                    console.error('Failed to fetch user data');
+                }
+
+            }
+        };
+
+        fetchUserData();
+    }, [user]);
+
+
+    console.log(mydata)
 
     return (
         <motion.div
@@ -55,7 +74,7 @@ const Navbar = () => {
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full overflow-hidden">
                             {user ? (
-                                <img src={user.photoURL} alt="User Avatar" />
+                                <img src={mydata.profile} alt="User Avatar" />
                             ) : (
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZv5fMEw3s3nvP0sxLIG8bO6RzCLmqgzW5ww&s" alt="User Avatar" />
                             )}
@@ -70,7 +89,7 @@ const Navbar = () => {
                     >
                         {user ? (
                             <>
-                                <li>{user.displayName}</li>
+                                <li className='text-center text-red-500 py-3 text-2xl'>{mydata.name}</li>
                                 <li><NavLink to='/Dashboard'>DashBoard</NavLink></li>
                                 <li><NavLink to='/Profile'>Profile</NavLink></li>
                                 <li><NavLink to='/Setting'>Settings</NavLink></li>
